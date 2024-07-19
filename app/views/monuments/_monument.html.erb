@@ -6,7 +6,9 @@
 
   <p>
     <strong>Address:</strong>
-    <%= monument.address %>
+    <span data-controller='typed' data-typed-strings-value="<%= [monument.address] %>">
+      <%= monument.address %>
+    </span>
   </p>
 
   <p>
