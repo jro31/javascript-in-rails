@@ -1,15 +1,17 @@
+<%# When you submit the form within a Turbo Frame, Turbo automatically intercepts the form submission and makes an AJAX request. %>
+<%= turbo_frame_tag 'monument_form' do %>
+  <%= simple_form_for(monument) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-<%= simple_form_for(monument, data: { insert_in_list_target: 'form', action: 'submit->insert-in-list#send' }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <div class="form-inputs">
+      <%= f.input :name %>
+      <%= f.input :address %>
+      <%= f.input :opening_date, as: :string, input_html: { data: { controller: 'datepicker' } } %>
+    </div>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :address %>
-    <%= f.input :opening_date, as: :string, input_html: { data: { controller: 'datepicker' } } %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
 <% end %>

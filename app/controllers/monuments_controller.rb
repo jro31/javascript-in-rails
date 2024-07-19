@@ -27,19 +27,10 @@ class MonumentsController < ApplicationController
     respond_to do |format|
       if @monument.save
         format.html { redirect_to @monument, notice: "Monument was successfully created." }
-        format.json do
-          render json: {
-            inserted_item: render_to_string(partial: 'monuments/monument', locals: { monument: @monument }, formats: [:html]),
-            form: render_to_string(partial: 'monuments/form', locals: { monument: Monument.new }, formats: [:html])
-          }
-        end
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json do
-          render json: {
-            form: render_to_string(partial: 'monuments/form', locals: { monument: @monument }, formats: [:html])
-          }, status: :unprocessable_entity
-        end
+        format.turbo_stream { render turbo_stream: turbo_stream.replace('monument_form', partial: 'monuments/form', locals: { monument: @monument }) }
       end
     end
   end

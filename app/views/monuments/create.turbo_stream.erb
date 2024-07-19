@@ -1,0 +1,6 @@
+<% if @monument.persisted? %>
+  <%= turbo_stream.append 'monuments', partial: 'monuments/monument', locals: { monument: @monument } %>
+  <%= turbo_stream.replace 'monument_form', partial: 'monuments/form', locals: { monument: Monument.new } %>
+<% else %>
+  <%= turbo_stream.replace 'monument_form', partial: 'monuments/form', locals: { monument: @monument } %>
+<% end %>
